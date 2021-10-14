@@ -24,6 +24,10 @@ dependencies {
 	implementation("junit:junit:4.12")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	//add validation
+	implementation("javax.validation:validation-api:2.0.1.Final")
+	implementation("org.hibernate.validator:hibernate-validator:6.2.0.Final")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
 }
 
 tasks.withType<KotlinCompile> {

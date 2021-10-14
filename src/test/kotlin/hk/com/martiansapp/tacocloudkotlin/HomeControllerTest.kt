@@ -13,19 +13,19 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @RunWith(SpringRunner::class)
-@WebMvcTest(HomeController::class) // <1>
+@WebMvcTest(HomeController::class)
 class HomeControllerTest {
     @Autowired
-    private val mockMvc // <2>
+    private val mockMvc
             : MockMvc? = null
 
     @Test
     @Throws(Exception::class)
     fun testHomePage() {
-        mockMvc!!.perform(get("/")) // <3>
-                .andExpect(status().isOk()) // <4>
-                .andExpect(view().name("home")) // <5>
-                .andExpect(content().string( // <6>
+        mockMvc!!.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("home"))
+                .andExpect(content().string(
                         containsString("Welcome to...")))
     }
 }
