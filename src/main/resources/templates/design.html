@@ -11,8 +11,13 @@
 <body>
 <h1>Design your taco!</h1>
 <img th:src="@{/images/TacoCloud.png}"/>
-
-<form method="POST" th:object="${design}">
+<table>
+    <tr th:each="var : ${param.keySet()}">
+        <td th:text="${var}"></td>
+        <td th:text="${param.get(var)}"></td>
+    </tr>
+</table>
+<form method="POST" th:object="${taco}">
 
     <span class="validationError"
           th:if="${#fields.hasErrors('ingredients')}"
@@ -20,7 +25,7 @@
 
     <div class="grid">
         <div class="ingredient-group" id="wraps">
-            <h3>Designate your wrap:${wrap}</h3>
+            <h3>Designate your wrap:</h3>
 
             <div th:each="ingredient : ${wrap}">
                 <input name="ingredients" type="checkbox" th:value="${ingredient.id}" />

@@ -28,6 +28,12 @@ dependencies {
 	implementation("javax.validation:validation-api:2.0.1.Final")
 	implementation("org.hibernate.validator:hibernate-validator:6.2.0.Final")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
+
+	//jdbc related
+	implementation("org.springframework.boot:spring-boot-starter-jdbc")
+	//use this version such that GeneratedKeyHolder works
+	// https://stackoverflow.com/a/53388841
+	implementation("com.h2database:h2:1.4.196")
 }
 
 tasks.withType<KotlinCompile> {

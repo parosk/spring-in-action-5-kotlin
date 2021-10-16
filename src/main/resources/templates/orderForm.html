@@ -12,7 +12,12 @@
     <h1>Order your taco creations!</h1>
 
     <img th:src="@{/images/TacoCloud.png}"/>
-
+    <table>
+        <tr th:each="var : ${param.keySet()}">
+            <td th:text="${var}"></td>
+            <td th:text="${param.get(var)}"></td>
+        </tr>
+    </table>
     <h3>Your tacos in this order:</h3>
     <a th:href="@{/design}" id="another">Design another taco</a><br/>
 
@@ -23,11 +28,11 @@
     </div>
 
     <h3>Deliver my taco masterpieces to...</h3>
-    <label for="name">Name: </label>
-    <input type="text" th:field="*{name}"/>
+    <label for="deliveryName">Name: </label>
+    <input type="text" th:field="*{deliveryName}"/>
     <span class="validationError"
-          th:if="${#fields.hasErrors('name')}"
-          th:errors="*{name}">Name Error</span>
+          th:if="${#fields.hasErrors('deliveryName')}"
+          th:errors="*{deliveryName}">Name Error</span>
     <br/>
 
     <label for="street">Street address: </label>
