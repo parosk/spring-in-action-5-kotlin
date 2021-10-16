@@ -1,9 +1,9 @@
 package hk.com.martiansapp.tacocloudkotlin.data
 
 import hk.com.martiansapp.tacocloudkotlin.Ingredient
+import org.springframework.data.repository.CrudRepository
 
-interface IngredientRepository {
-    fun findAll(): Iterable<Ingredient>
-    fun findOne(id: String): Ingredient?
-    fun save(ingredient: Ingredient): Ingredient
-}
+//first para : data table in persist table
+//second para : data type for id
+//CrudRepository declares about a dozen methods for CRUD
+interface IngredientRepository : CrudRepository<Ingredient, String>

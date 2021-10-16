@@ -34,6 +34,9 @@ dependencies {
 	//use this version such that GeneratedKeyHolder works
 	// https://stackoverflow.com/a/53388841
 	implementation("com.h2database:h2:1.4.196")
+
+	// jpa
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 }
 
 tasks.withType<KotlinCompile> {
