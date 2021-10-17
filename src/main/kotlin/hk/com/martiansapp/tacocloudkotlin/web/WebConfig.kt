@@ -15,5 +15,6 @@ class WebConfig : WebMvcConfigurer {
 
         // replace homeController if it is only view
         registry.addViewController("/").setViewName("home")
+        registry.addViewController("/login")
     }
 }
