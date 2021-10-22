@@ -12,12 +12,12 @@ import javax.persistence.Id
 class User(
         private var username: String,
         private var password: String,
-        private var fullname: String?,
-        private var street: String?,
-        private var city: String?,
-        private var state: String?,
-        private var zip: String?,
-        private var phoneNumber: String?,
+         var fullname: String?,
+         var street: String?,
+         var city: String?,
+         var state: String?,
+         var zip: String?,
+         var phoneNumber: String?,
 ) : UserDetails {
     private constructor() : this("", "", null, null, null, null, null, null)
 
@@ -29,11 +29,11 @@ class User(
     }
 
     override fun getPassword(): String {
-        return username
+        return password
     }
 
     override fun getUsername(): String {
-        return password
+        return username
     }
 
     override fun isAccountNonExpired(): Boolean {

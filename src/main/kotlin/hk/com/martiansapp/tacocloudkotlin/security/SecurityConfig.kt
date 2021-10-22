@@ -54,6 +54,7 @@ class SecurityConfig(@Autowired val userDetailsService: UserDetailsService) : We
                 .antMatchers("/design", "/orders")
                 .hasRole("USER")
                 .antMatchers("/", "/**").permitAll()
+                .antMatchers("/h2_console/**").permitAll()
                 /** indicating finish authorization configuration, and ready to apply some additional http config*/
                 .and()
                 .formLogin()
@@ -71,6 +72,17 @@ class SecurityConfig(@Autowired val userDetailsService: UserDetailsService) : We
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
+                /**to disable CSRF (but please dont do it, but the above setting cant post to design/orders if dont disable it  ) */
+                .and()
+                .csrf()
+                .disable()
+
+
+//        // this will ignore only h2-console csrf, spring security 4+
+//        http.csrf().ignoringAntMatchers("/h2-console/**")
+//        //this will allow frames with same origin which is much more safe
+//        http.headers().frameOptions().sameOrigin()
+
     }
 
 

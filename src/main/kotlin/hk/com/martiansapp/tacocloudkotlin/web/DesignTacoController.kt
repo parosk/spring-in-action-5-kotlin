@@ -4,16 +4,20 @@ import hk.com.martiansapp.tacocloudkotlin.Ingredient
 import hk.com.martiansapp.tacocloudkotlin.Ingredient.Type
 import hk.com.martiansapp.tacocloudkotlin.Order
 import hk.com.martiansapp.tacocloudkotlin.Taco
+import hk.com.martiansapp.tacocloudkotlin.User
 import hk.com.martiansapp.tacocloudkotlin.data.IngredientRepository
 import hk.com.martiansapp.tacocloudkotlin.data.TacoRepository
+import hk.com.martiansapp.tacocloudkotlin.data.UserRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.Errors
 import org.springframework.web.bind.annotation.*
+import java.security.Principal
 import java.util.*
 import javax.validation.Valid
+
 
 // this annotation is for component scanning, auto create instance of DesignTacoController as bean
 @Controller
@@ -21,7 +25,7 @@ import javax.validation.Valid
 @RequestMapping("/design")
 // the order object should be kept in session and available across multiple requests
 @SessionAttributes("order")
-class DesignTacoController(@Autowired val ingredientRepo: IngredientRepository, @Autowired val designRepo: TacoRepository) {
+class DesignTacoController(@Autowired val ingredientRepo: IngredientRepository, @Autowired val designRepo: TacoRepository,@Autowired val userRepo: UserRepository) {
     private val logger = LoggerFactory.getLogger(this.javaClass)
 
     // ensures that an Order object will be created in the model
@@ -50,7 +54,10 @@ class DesignTacoController(@Autowired val ingredientRepo: IngredientRepository, 
     }
 
     @GetMapping
-    fun showDesignForm(model: Model): String? {
+    fun showDesignForm(model: Model, principal: Principal): String? {
+        val username: String = principal.name
+        val user: User = userRepo.findByUsername(username)
+        model.addAttribute("user", user)
         return "design"
     }
 
