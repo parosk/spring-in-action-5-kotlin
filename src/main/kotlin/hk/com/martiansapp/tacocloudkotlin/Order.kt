@@ -47,6 +47,11 @@ class Order(
 
         @field:Digits(integer = 3, fraction = 0, message = "Invalid CVV")
         var ccCVV: String? = null,
+        /**The @ManyToOne annotation on this property indicates that an order belongs to a
+         * sin-gle user, and, conversely, that a user may have many orders.
+         */
+        @ManyToOne
+        var user: User? = null
 ) : Serializable {
     @Transient
     private val serialVersionUID = 1L
