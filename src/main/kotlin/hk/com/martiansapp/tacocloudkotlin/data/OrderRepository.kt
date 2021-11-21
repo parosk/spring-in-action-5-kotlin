@@ -1,6 +1,8 @@
 package hk.com.martiansapp.tacocloudkotlin.data
 
 import hk.com.martiansapp.tacocloudkotlin.Order
+import hk.com.martiansapp.tacocloudkotlin.User
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.CrudRepository
 
 interface OrderRepository : CrudRepository<Order, Long> {
@@ -16,6 +18,11 @@ interface OrderRepository : CrudRepository<Order, Long> {
     @Query("Order o where o.deliveryCity='Seattle'")
     fun readOrdersDeliveredInSeattle(): List<Order?>?
      */
+
+    fun findByUserOrderByPlacedAtDesc(
+        user: User?,
+        pageable: Pageable
+    ): MutableList<Order?>?
 }
 /**
 keyword that jpa can recognize and generate method

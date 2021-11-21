@@ -5,8 +5,12 @@ import hk.com.martiansapp.tacocloudkotlin.User
 import hk.com.martiansapp.tacocloudkotlin.data.OrderRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.validation.Errors
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.bind.support.SessionStatus
@@ -16,7 +20,10 @@ import javax.validation.Valid
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("order")
-class OrderController(@Autowired val orderRepo: OrderRepository) {
+@ConfigurationProperties(prefix="taco.orders") //define variable that can be set by env var
+class OrderController(@Autowired val orderRepo: OrderRepository,@Autowired val props: OrderProps) {
+
+
     private val logger = LoggerFactory.getLogger(this.javaClass)
 
     @GetMapping("/current")
@@ -38,6 +45,18 @@ class OrderController(@Autowired val orderRepo: OrderRepository) {
             order.zip = user.zip
         }
         return "orderForm"
+    }
+
+    @GetMapping
+    fun ordersForUser(
+        @AuthenticationPrincipal user: User?, model: Model
+    ): String? {
+        val pageable: Pageable = PageRequest.of(0, props.pageSize)
+        model.addAttribute(
+            "orders",
+            orderRepo.findByUserOrderByPlacedAtDesc(user, pageable)
+        )
+        return "orderList"
     }
 
     @PostMapping

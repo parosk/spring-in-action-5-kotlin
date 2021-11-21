@@ -1,0 +1,72 @@
+# many properties is overriden by application.properties or application.yml
+#JVM system properties
+# Operating system environment variables  Command-line arguments
+# Application property configuration filesJVM system properties
+# Operating system environment variables  Command-line arguments
+# Application property configuration files
+
+server:
+  port: 8080
+  # mock create key for https
+  #keytool -keystore mykeys.jks -genkey -alias tomcat -keyalg RSA
+#  ssl:
+#    key-store: file:///path/to/mykeys.jks
+#    key-store-password: letmein
+#    key-password: letmein
+
+# you could also specify the port when starting the application using a command-line argument
+#java -jar tacocloud-0.0.5-SNAPSHOT.jar --server.port=9090
+# or set up env variable
+#export SERVER_PORT=9090
+
+#Although you could explicitly configure your own DataSource bean,
+#that’s usually unnecessary. Instead, it’s simpler to configure the URL
+#and credentials for your data-base via configuration properties.
+
+#By default, the log files rotate once they reach 10 MB in size.
+#logging:
+#  path: /var/logs/
+#  file: TacoCloud.log
+#  level:
+#    root: WARN
+#    org:
+#      springframework:
+#        security: DEBUG
+
+#could set profile like this but not very useful
+#because we will have to edit source code everytime
+#suggest to export  SPRING_PROFILES_ACTIVE=prod/dev
+#spring:
+#  profiles:
+#    active:
+#   - prod
+
+
+
+logging:
+  level:
+    tacos: DEBUG
+
+
+#  set a property named greeting.welcome to echo the value of another property named spring.application .name.
+greeting:
+  welcome: ${spring.application.name}
+
+
+# or export TACO_ORDERS_PAGESIZE=10
+taco:
+  orders:
+    page-size: 10
+
+---
+spring:
+  profiles: prod
+
+  datasource:
+    url: jdbc:mysql://localhost/tacocloud
+    username: tacouser
+    password: tacopassword
+
+logging:
+  level:
+    tacos: WARN

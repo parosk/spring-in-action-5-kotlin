@@ -75,7 +75,12 @@ class SecurityConfig(@Autowired val userDetailsService: UserDetailsService) : We
                 /**to disable CSRF (but please dont do it, but the above setting cant post to design/orders if dont disable it  ) */
                 .and()
                 .csrf()
-                .disable()
+                .ignoringAntMatchers("/h2-console/**").ignoringAntMatchers("/**")
+                // Allow pages to be loaded in frames from the same origin; needed for H2-Console
+                .and()
+                .headers()
+                .frameOptions()
+                .sameOrigin()
 
 
 //        // this will ignore only h2-console csrf, spring security 4+
